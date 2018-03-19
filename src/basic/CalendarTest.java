@@ -7,6 +7,7 @@ public class CalendarTest {
 	public static void main(String[] args) {
 		// 오늘 날짜 - 년 월 일 요일 출력
 		Calendar c = Calendar.getInstance();
+		// 이것도 싱글토온
 		int year = c.get(c.YEAR);
 		int month =  c.get(c.MONTH)+1;
 		int day = c.get(c.DATE);
