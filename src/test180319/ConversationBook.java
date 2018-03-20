@@ -1,5 +1,7 @@
 package test180319;
 
+import java.util.Scanner;
+
 public class ConversationBook extends Book{
 	private String language = new String();
 	public ConversationBook(){
@@ -18,6 +20,12 @@ public class ConversationBook extends Book{
 	}
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	@Override
+	public void setall(int count,Scanner scanner){
+		super.setall(count, scanner);
+		System.out.println("언어>>");
+		this.language = scanner.nextLine();
 	}
 	public void showInfo(){
 		super.showInfo();

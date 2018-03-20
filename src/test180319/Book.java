@@ -1,5 +1,7 @@
 package test180319;
 
+import java.util.Scanner;
+
 public class Book extends Product{
 	private String ISBNNum = new String();
 	private String author = new String();
@@ -36,6 +38,16 @@ public class Book extends Product{
 	}
 	public void setBook_Name(String book_Name) {
 		this.book_Name = book_Name;
+	}
+	@Override
+	public void setall(int count,Scanner scanner){
+		super.setall(count, scanner);
+		System.out.println("ISBN>>");
+		this.ISBNNum = scanner.nextLine();
+		System.out.println("책 제목>>");
+		this.book_Name = scanner.nextLine();
+		System.out.println("저자>>");
+		this.author = scanner.nextLine();
 	}
 	@Override
 	public void showInfo(){

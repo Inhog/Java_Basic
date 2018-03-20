@@ -1,5 +1,7 @@
 package test180319;
 
+import java.util.Scanner;
+
 public class CompactDisc extends Product{
 	private String albumName = new String();
 	private String singerName = new String();
@@ -22,6 +24,14 @@ public class CompactDisc extends Product{
 	}
 	public void setSingerName(String singerName) {
 		this.singerName = singerName;
+	}
+	@Override
+	public void setall(int count,Scanner scanner){
+		super.setall(count, scanner);
+		System.out.println("앨범 제목>>");
+		this.albumName = scanner.nextLine();
+		System.out.println("가수>>");
+		this.singerName = scanner.nextLine();
 	}
 	
 	public void showInfo(){

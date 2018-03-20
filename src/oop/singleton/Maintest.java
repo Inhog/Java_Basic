@@ -24,6 +24,5 @@ public class Maintest {
 		// 그리고 메서드 안에있는 변수또한 static으로 메모리에 먼저 띄운다.
 		Book b2 = Book.getInstance();
 		Book b3 = Book.getInstance();
-	
 	}
 }

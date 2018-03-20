@@ -3,6 +3,7 @@ package test180319;
 import java.util.Scanner;
 
 public class ProductInfo {
+	// 입력받을때 각각 예외처리를 해주면 깔끔할거같다.
 	static Product[] product = new Product[5];
 	static int count =0;
 	public static void main(String[] args) {
@@ -37,8 +38,8 @@ public class ProductInfo {
 				roofCheck = false;
 				break;
 			default:
-				System.out.println("입력오류 : 프로그램 종료");
-				roofCheck = false;
+				System.out.println("입력오류 : 프로그램 종료하려다가 말았음 제대로 입력하세요");
+				//roofCheck = false;
 				break;
 			}
 		}
@@ -53,7 +54,7 @@ public class ProductInfo {
 		switch(check){
 		case 1:
 			product[count] = new Book();
-			product[count].setIdentity(count);
+			/*product[count].setIdentity(count);
 			System.out.println("상품설명 >>");
 			product[count].setExplanaion(scanner.nextLine());
 			System.out.println("생산자 >>");
@@ -66,12 +67,13 @@ public class ProductInfo {
 			System.out.println("책 제목>>");
 			((Book)product[count]).setBook_Name(scanner.nextLine());
 			System.out.println("저자>>");
-			((Book)product[count]).setAuthor(scanner.nextLine());
+			((Book)product[count]).setAuthor(scanner.nextLine());*/
+			product[count].setall(count, scanner);
 			count++;
 			break;
 		case 2:
 			product[count] = new CompactDisc();
-			product[count].setIdentity(count);
+			/*product[count].setIdentity(count);
 			System.out.println("상품설명 >>");
 			product[count].setExplanaion(scanner.nextLine());
 			System.out.println("생산자 >>");
@@ -82,12 +84,13 @@ public class ProductInfo {
 			System.out.println("앨범 제목>>");
 			((CompactDisc) product[count]).setAlbumName(scanner.nextLine());
 			System.out.println("가수>>");
-			((CompactDisc)product[count]).setSingerName(scanner.nextLine());
+			((CompactDisc)product[count]).setSingerName(scanner.nextLine());*/
+			product[count].setall(count, scanner);
 			count++;
 			break;
 		case 3:
 			product[count] = new ConversationBook();
-			product[count].setIdentity(count);
+			/*product[count].setIdentity(count);
 			System.out.println("상품설명 >>");
 			product[count].setExplanaion(scanner.nextLine());
 			System.out.println("생산자 >>");
@@ -102,8 +105,8 @@ public class ProductInfo {
 			System.out.println("언어>>");
 			((ConversationBook)product[count]).setLanguage(scanner.nextLine());
 			System.out.println("ISBN>>");
-			((ConversationBook)product[count]).setISBNNum(scanner.nextLine());
-			
+			((ConversationBook)product[count]).setISBNNum(scanner.nextLine());*/
+			product[count].setall(count, scanner);
 			count++;
 			break;
 		default:
