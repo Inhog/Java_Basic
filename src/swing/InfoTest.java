@@ -48,7 +48,7 @@ class Info{
 		bInsert.setMnemonic('i');
 		// Alt + i 누르면 단축키처럼 사용가능하다.
 		bModify = new JButton("수정",normalIcon2);
-		bModify.setRolloverIcon(new ImageIcon("C:\\Users\\student\\Desktop\\짱이1.jpg"));
+		bModify.setRolloverIcon(new ImageIcon("C:\\Users\\student\\Desktop\\짱이4.jpg"));
 		bModify.setPressedIcon(new ImageIcon("C:\\Users\\student\\Desktop\\짱이2.jpg"));
 		bDelete = new JButton("삭제");
 		bShow = new JButton("전체보기");
