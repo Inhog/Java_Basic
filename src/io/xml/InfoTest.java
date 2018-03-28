@@ -165,9 +165,6 @@ class InfoTest implements ActionListener{
 			DocumentBuilder docBuild = docFac.newDocumentBuilder();
 			Document doc = docBuild.parse(f);		// file -> 메모리구조(트리구조)변경
 			
-			RandomAccessFile raf = new RandomAccessFile(f, "rw");
-			long pos = raf.length() - new String("</info>").length();
-			
 			NodeList personList = doc.getElementsByTagName("person");	// 태그 이름이 여러개일 수 있으니  알아서 list로 저장하게한다.
 			ta.setText("");
 			
@@ -179,7 +176,11 @@ class InfoTest implements ActionListener{
 					Node node = childlist.item(j);
 					
 					if(node.getNodeName().equals("name")){
-						personList.item(i).removeChild(node);
+						temp.getParentNode().removeChild(temp);
+						Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		                Result output = new StreamResult(new File("info.xml"));
+		                Source input = new DOMSource(doc);
+		                transformer.transform(input, output);
 					}
 				}
 			}
@@ -189,6 +190,7 @@ class InfoTest implements ActionListener{
 
 	}
 	void search(){
+//		찾을때 <info>랑 <person> 을 찾아 접근하게끔 바꾸면 계속 가능할 듯
 		File f = new File("info.xml");
 		try {
 			DocumentBuilderFactory docFac = DocumentBuilderFactory.newInstance();
@@ -209,8 +211,11 @@ class InfoTest implements ActionListener{
 						String searchName =tf_name.getText();
 						
 						if(searchName.equals(node.getTextContent())){
-							String t1 = node.getNextSibling().getTextContent();
-							tf_id.setText(t1);
+							tf_id.setText(node.getNextSibling().getTextContent());
+							tf_tel.setText(node.getNextSibling().getTextContent());
+							tf_age.setText(node.getNextSibling().getTextContent());
+							tf_gender.setText(node.getNextSibling().getTextContent());
+							tf_home.setText(node.getNextSibling().getTextContent());
 						}
 					}
 				}
