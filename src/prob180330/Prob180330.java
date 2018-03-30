@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Prob180330 {
 	public static void main(String[] args) {
-		prob5();
+		prob3();
 	}
 	public static void prob1() {
 		/**
@@ -62,7 +62,7 @@ public class Prob180330 {
 		
 		for(int i=0;i<input.length;i++){
 			if(input[i]!=0){
-				if((input[i]/2) == 0){
+				if((input[i]%2) == 0){
 					even++;
 				}else{
 					odd++;
