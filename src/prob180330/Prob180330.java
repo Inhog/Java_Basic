@@ -73,7 +73,11 @@ public class Prob180330 {
 		System.out.println("홀수 : " + odd);
 	}
 	
+	
 	public static void prob4(){
+		/**문제4) 행과 열의 수를 입력받아
+		 *  다음과 같이 출력하는 프로그램을작성하시오.
+		 */
 		Scanner scanner = new Scanner(System.in);
 		int row = scanner.nextInt();
 		int col = scanner.nextInt();
@@ -88,7 +92,14 @@ public class Prob180330 {
 			row_count++;
 		}
 	}
+	
 	public static void prob5(){
+		/**문제 5) 정수 20 개를 입력받아서
+		 *  그 합과 평균을 출력하되 0 이 입력되면 
+		 *  20개 입력이 끝나지 않았더라도
+		 *   그 때까지 입력된합과 평균을 
+		 *   출력하는 프로그램을 작성하시오. 
+		 */
 		Scanner scanner = new Scanner(System.in);
 		int[] input = new int[20];
 		int sum=0,avg=0;
