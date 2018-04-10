@@ -1,25 +1,30 @@
 package swing;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*; // 다른거래 포함 안된대
-import java.util.Calendar;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+// 다른거래 포함 안된대
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 class Info{
 	// 1. 멤버변수 선언
 	JFrame f;
 	JLabel lname,lTel, lJumin, lJender, lAge, lHome;
-	JTextField tfName;
-	JTextField tfTel;
-	JTextField tfJumin;
-	JTextField tfGender;
-	JTextField tfAge;
-	JTextField tfHome;
-	JButton bInsert;
-	JButton bModify;
-	JButton bDelete;
-	JButton bShow;
-	JButton bExit;
+	JTextField tfName, tfTel,tfJumin, tfGender, tfAge,tfHome;
+	JButton bInsert, bModify,bDelete,bShow, bExit;
 	JTextArea ta;
 	ImageIcon normalIcon = new ImageIcon("C:\\Users\\student\\Desktop\\Smile_pug.jpg");
 	ImageIcon normalIcon2 = new ImageIcon("C:\\Users\\student\\Desktop\\짱이1.jpg");
@@ -27,7 +32,9 @@ class Info{
 	// 나는 귀찮아서 그냥 바탕화면에 jpg파일 불러옴.
 	// 역슬래쉬는 \\ 두번 쳐야 하나로 출력 \\ -> \
 	
-
+	//JDBC 객체 선언 
+	Database db;
+	
 	// 2. 객체 생성
 	Info(){
 		f = new JFrame("나의 프로그램");
@@ -54,7 +61,14 @@ class Info{
 		bShow = new JButton("전체보기");
 		bExit = new JButton("종료");
 		ta = new JTextArea(10,10);
-
+		
+		// JDBC 객체 생성
+		try {
+			db = new Database();
+			ta.setText("본사에 연결되었습니다. ");
+		} catch (Exception e) {
+			ta.setText("연결실패:"+e.getMessage());
+		}
 	}
 
 	// 3. 화면 구성
@@ -105,10 +119,8 @@ class Info{
 		bShow.addActionListener(bHdlr);
 		bExit.addActionListener(bHdlr);
 		
-		// 핸들러 객체 생성
-		MyTxt txtHdlr = new MyTxt();
 		// 이벤트 등록
-		tfTel.addActionListener(txtHdlr);
+		tfTel.addActionListener(bHdlr);
 		
 		// 핸들러 객체 생성
 		MyWin winHdlr = new MyWin();
@@ -156,13 +168,6 @@ class Info{
 		}
 	}
 	
-	class MyTxt implements ActionListener{
-		// TextField 이벤트 핸들러 생성 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showMessageDialog(null,tfTel.getText()+"검색");
-		}
-	}// end of class MyTxt implements ActionListener
 	
 	class MyBtn implements ActionListener{ 
 		// 이벤트는 대체로 inner 클래스로 만든다.
@@ -171,22 +176,96 @@ class Info{
 		@Override
 		public void actionPerformed(ActionEvent ev){
 			//Object evt = ev.getSource();
-			JButton evt = (JButton)ev.getSource();
+			Object evt = ev.getSource();
 			if(evt == bInsert){
 			JOptionPane.showMessageDialog(null,"저장합니다.");
+			insert();
 			}else if(evt == bModify){
 				JOptionPane.showMessageDialog(null,"수정합니다.");
+				updateByTel();
 			}else if(evt == bDelete){
 			JOptionPane.showMessageDialog(null,"삭제합니다.");
+			deleteByTel();
 			}else if(evt == bShow){
 				JOptionPane.showMessageDialog(null,"합.");
+				selectByTel();
 			}else if(evt == bExit){
 			System.exit(0); 	// 여기 들어가는 숫자는의미가 음슴.
+			}else if(evt== tfTel){
+				selectByTel();
 			}
 		}// end of actionPerformed()
-
+		
+		void deleteByTel(){
+			String tel = tfTel.getText();
+			try{
+				db.deleteData(tel);
+				ta.setText("삭제 되었습니다.");
+				tfName.setText(null);
+				tfJumin.setText(null);
+				tfGender.setText(null);
+				tfAge.setText(null);
+				tfHome.setText(null);
+				tfTel.setText(null);
+			}catch(Exception e){
+				System.out.println("삭제실패:"+e.getMessage());
+			}
+		}
+		
+		void updateByTel(){
+			String name = tfName.getText();
+			String id = tfJumin.getText();
+			String tel = tfTel.getText();
+			String gender = tfGender.getText();
+			String age = tfAge.getText();
+			String home = tfHome.getText();
+			InfoVO info = new InfoVO(tel,name,id,gender, Integer.parseInt(age), home);
+			try{
+			db.updateData(info);
+			ta.setText("수정되었습니다.");
+			}catch(Exception e){
+				System.out.println("연결실패 : "+ e.getMessage());
+			}
+		}
+		void selectByTel(){
+			// 1.입력한 전화번호를 얻어오기
+			// 2. 1번값을 Database에 selectBtPk()에 전송
+			// 3. 2번의 결과를 화면에 뿌려줌
+			String tel = tfTel.getText();
+			try{
+				InfoVO vo = db.selectByPk(tel);
+				tfName.setText(vo.getName());
+				tfJumin.setText(vo.getId());
+				tfGender.setText(vo.getGender());
+				tfAge.setText(String.valueOf(vo.getAge()));
+				tfHome.setText(vo.getHome());
+			}catch(Exception e ){
+				System.out.println("전화번호 검색 실패"+e.getMessage());
+			}
+		}
+		void insert(){
+			// 1. 화면에서 각각의 입력값을 얻어오기
+			// 2. 1번의 값들을 InfoVO객체로 저장
+			// 3. Database 클래스의 insertData() 호출
+			String name = tfName.getText();
+			String id = tfJumin.getText();
+			String tel = tfTel.getText();
+			String gender = tfGender.getText();
+			String age = tfAge.getText();
+			String home = tfHome.getText();
+			InfoVO info = new InfoVO(tel,name,id,gender, Integer.parseInt(age), home);
+			
+			try{
+			db.insertData(info);
+			ta.setText("입력되었습니다.");
+			}catch(Exception e){
+				System.out.println("연결실패 : "+ e.getMessage());
+			}
+			
+		}
 	}// end of ActionListener{}
 }
+
 
 public class InfoTest {
 

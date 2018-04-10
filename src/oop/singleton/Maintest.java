@@ -4,9 +4,9 @@ class Book{
 	// 싱글톤 패턴
 	static Book b;
 	private Book(){
-		
 		System.out.println("객체생성");
 	}
+	
 	static public Book getInstance(){		 
 		if( b == null)	b = new Book();
 		// 맨 처음 Book 클래스는 null을 가리키기 때문에 new Book()으로 생성되고
