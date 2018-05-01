@@ -1,6 +1,9 @@
 package dtree.binary;
 
 public class Node<Key extends Comparable<Key>> {
+	// compareTO() overriding 하여 두 노드 값 비교 필요
+	// Key는 자료형은 Comparable를 구현한 클래스만 올 수 있음.
+	// 
 	private  Key       item;
 	private  Node<Key> left;
 	private  Node<Key> right;

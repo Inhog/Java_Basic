@@ -18,9 +18,14 @@ public class MainTest {
 		t.put(350, "Lemon");
 		t.put(10,  "Watermelon");
 
-		t.print(t.root);System.out.println();
+		t.print(t.root);
+		System.out.println();
 		System.out.println("높이 = "+ t.height());
 		
+		System.out.println("250의 데이타 : " + t.get(t.root,250));
+		
+		t.delete(t.root,200);
+		t.print(t.root);
 		
 	}
 }
