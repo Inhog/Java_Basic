@@ -16,10 +16,16 @@ public class DFS {
 	
 	//*************************************************
 	private void dfs(int i) {
-		
-		
-		
-		
-		
+		visited[i] = true;
+		System.out.print(i + "-");
+//		for(Edge e : graph[i]){
+//			if(!visited[e.adjvertex]){
+//				dfs(e.adjvertex);
+//			}
+//		}
+		for(int j=0;j<graph[i].size();j++){
+			if(!visited[graph[i].get(j).adjvertex])
+			dfs(graph[i].get(j).adjvertex);			
+		}
 	}
 }

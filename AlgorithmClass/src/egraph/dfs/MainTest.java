@@ -41,8 +41,16 @@ public class MainTest {
 		adjList[9] = new LinkedList<>(); Edge e20 = new Edge(3); adjList[9].add(e20);
 
 
-		
-		
-		
+		 for (int i = 0; i < N; i++) {
+	         System.out.print(i + ": ");
+	         for (Edge e : adjList[i]) {
+	            System.out.print(" - " + e.adjvertex);
+	         }
+	         System.out.println();
+	      }
+
+	      System.out.println("깊이우선탐색");
+	      DFS dfs = new DFS(adjList);
+
 	}
 }

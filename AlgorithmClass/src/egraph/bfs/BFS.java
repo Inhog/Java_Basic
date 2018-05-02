@@ -16,10 +16,24 @@ public class BFS {
 	
 	//*****************************************************
 	private void bfs(int i) {
-		
-		
-		
-		
+		Queue<Integer> q = new LinkedList();
+		visited[i] = true;
+		q.offer(i);
+		while(!q.isEmpty()){
+			int node = q.poll();
+			System.out.print(node + " ");
+//			for(Edge e : graph[node] )
+//				if(!visited[e.adjvertex]){
+//					visited[e.adjvertex] = true;
+//					q.add(e.adjvertex);
+//				}
+			for(int j=0;j<graph[node].size();j++){
+				if(!visited[graph[node].get(j).adjvertex]){
+					visited[graph[node].get(j).adjvertex] = true;
+					q.add(graph[node].get(j).adjvertex);
+				}
+			}
+		}
 	}
 }
 
